@@ -1,63 +1,49 @@
-#language: pt
+            #language: pt
 
-Funcionalidade: Seleção de prdouto
+            Funcionalidade: Seleção de produto
 
-Como cliente da EBAC-SHOP
-Quero configurar meu produto de acordo com meu tamanho e gosto
-E escolher a quantidade
-Para depois inserir no carrinho
+            Como cliente da EBAC-SHOP
+            Quero configurar meu produto de acordo com meu tamanho e gosto
+            E escolher a quantidade
+            Para depois inserir no carrinho
 
-Contexto:
-Dado acesso produto selecionado
+            Contexto:
+            Dado acesso produto selecionado
 
+            Esquema do Cenário: Escolha obrigatória
 
-Cenário: Escolha Obrigatória
+            Quando eu deixar de selecionar qualquer uma das opções obrigatórias:
+            <cor>, <tamanho> e <quantidade>
+            Então deve ser exibida a mensagem "<mensagem>"
 
-Quando eu selecionar <cor>
-E <quantidade>
-E <tamanho>
-Então o produto vai para o carrinho de compras
-
-
-Cenário: Escolha cor obrigatória
-
-Quando eu selecionar <tamanho>
-E <quantidade>
-Então mostrar mensagem: "Escolha de cor obrigatória"
-
-
-Cenário: Escolha tamanho obrigatória
-
-Quando eu selecionar <cor>
-E <quantidade>
-Então mostrar mensagem: "Escolha de tamanho obrigatória"
+            | cor    | XS | quantidade | mensagem                       |
+            | Blue   |    | 1          | tamanho obrigatório            |
+            | Orange | L  |            | quantidade obrigatório         |
+            | Red    | M  | 3          | produto adicionado no carrinho |
+            |        | XL | 4          | cor obrigatório                |
+            | Red    | M  | 5          | produto adicionado no carrinho |
+            |        | S  | 6          | cor obrigatório                |
+            | Orange | XL | 7          | produto adicionado no carrinho |
+            | Red    | M  |            | quantidade obrigatório         |
+            | BLue   |    | 9          | tamanho obrigatório            |
+            |        | XL | 10         | cor obrigatório                |
 
 
-Cenário: Escolha quantidade obrigatória
 
-Quando eu selecionar <tamanho>
-E <cor>
-Então mostrar mensagem:  "Escolha de quantidade obrigatória"
+            Cenário: limite de quantidade
+            Quando eu selecionar a quantidade de <quantidade>
+            Então deve exibir a mensagem de <mensagem>
 
-Contexto:
-Dado acesso o produto e adicione no máximo 10 produtos no carrinho
-
-Cenário: Número maxímo ultrapassado
-
-Quando eu selecionar 12 produtos
-Então deve exibir uma mensagem "Número de produto excedeu o máximo de 10 itens"
-
-Cenário: Adicionando no carrinho
-Quando eu selecionar 10 produtos
-Então Os produtos vai ser adicionado no carrinho
+            | quantidade | mensagem                        |
+            | 3          | produto adicionado no carrinho  |
+            | 12         | excedeu o limite de 10 produtos |
 
 Contexto:
 Dado que eu deseje limpar todos os itens selecionados
 
-Cenário: Clicar no botão limpar
+Cenário: Limpar seleção
 Quando eu clico no botão limpar
-Então todos os itens deve ser ser removidos da seleção
-
+Então todas as seleções feitas devem ser removidas e voltar ao estado original
 
 
 
